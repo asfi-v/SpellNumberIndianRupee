@@ -187,3 +187,5 @@ End Function
 
    ![image](https://github.com/user-attachments/assets/92e4d3fb-00a7-4d25-b047-6b75fdd627c2)
    
+## Acknowledgments
+   Inspired by various online resources and examples for converting numbers to words in VBA.
