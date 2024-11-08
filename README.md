@@ -23,14 +23,13 @@ This function takes a numeric value as input and returns a string representing t
 5. Copy the below VBA Code in Module.
 6. Use the `SpellINR` function in your Excel formulas.
 
-   ![image](https://github.com/user-attachments/assets/6802a6f9-ffef-4fec-8159-a4eacab5c288)
+   ![image](https://github.com/user-attachments/assets/3c9ec07c-2d6c-4a82-bd6d-499e82282af1)
 
 
 ## VBA Code:
 ```vba
 
 Function SpellINR(ByVal MyNumber)
-
     '****************' Main Function *'****************
 
     Dim Rupees, Paise, Temp
@@ -39,7 +38,7 @@ Function SpellINR(ByVal MyNumber)
     Place(2) = " Thousand, "
     Place(3) = " Lakh, "
     Place(4) = " Crore, "
-    Place(5) = " Thousand, " ' Changed from "Arab" to "Thousand"
+    Place(5) = " Thousand, "
     MyNumber = Trim(Str(MyNumber)) ' Position of decimal place 0 if none
     DecimalPlace = InStr(MyNumber, ".")
     ' Convert Paise and set MyNumber to Rupee amount
@@ -83,7 +82,14 @@ Function SpellINR(ByVal MyNumber)
     Case Else
         Paise = " and " & Paise & " Paise"
     End Select
-    SpellINR = Rupees & Paise & " Only"
+    ' Handle special cases
+    If Rupees = "No Rupees" And Paise <> "" Then
+        SpellINR = "Rupees " & Mid(Paise, 6) & " Only" ' Remove " and " from Paise
+    ElseIf Rupees = "No Rupees" And Paise = "" Then
+        SpellINR = "No Rupees Only"
+    Else
+        SpellINR = Rupees & Paise & " Only"
+    End If
 End Function
 
 '*******************************************
